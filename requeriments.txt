@@ -1,0 +1,13 @@
+pandas
+numpy
+scikit-learn
+matplotlib
+seaborn
+lightkurve
+astroquery
+torch
+torchvision
+torchaudio
+transformers
+xgboost
+wandb
