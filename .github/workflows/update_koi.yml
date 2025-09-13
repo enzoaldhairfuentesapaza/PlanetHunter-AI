@@ -1,9 +1,12 @@
 name: Update KOI Data
 
 on:
+  workflow_dispatch:
   schedule:
-    - cron: "0 8 * * *"   # Corre todos los días a las 08:00 UTC
-  workflow_dispatch:       # Permite correrlo manualmente desde la pestaña "Actions"
+    - cron: "0 0 * * 0"  # cada domingo a medianoche UTC
+
+permissions:
+  contents: write   # 👈 Permiso para escribir en el repo
 
 jobs:
   update-data:
@@ -16,19 +19,18 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: "3.10"
+          python-version: '3.10'
 
       - name: Install dependencies
-        run: |
-          pip install astroquery pandas pyarrow
+        run: pip install -r requirements.txt
 
       - name: Run update script
         run: python update_koi_data.py
 
       - name: Commit and push changes
         run: |
-          git config --global user.name "github-actions"
-          git config --global user.email "actions@github.com"
-          git add data/*
-          git commit -m "📡 Auto-update KOI data"
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/
+          git commit -m "📡 Auto-update KOI data" || echo "No changes to commit"
           git push
