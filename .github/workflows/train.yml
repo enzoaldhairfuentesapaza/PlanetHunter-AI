@@ -28,7 +28,7 @@ jobs:
     - name: Run RandomForest training
       run: |
         mkdir -p results
-        python scripts/train_randomforest.py
+        python train_rf.py
 
     - name: Upload plots and metrics
       uses: actions/upload-artifact@v4
