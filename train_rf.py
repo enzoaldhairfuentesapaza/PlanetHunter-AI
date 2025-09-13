@@ -53,10 +53,17 @@ y_pred = rf.predict(X_test)
 report = classification_report(y_test, y_pred, output_dict=True)
 accuracy = accuracy_score(y_test, y_pred)
 
-os.makedirs("reports/metrics", exist_ok=True)
-with open("reports/metrics/rf_metrics.json", "w") as f:
+os.makedirs("results/metrics", exist_ok=True)
+with open("results/metrics/rf_metrics.json", "w") as f:
     json.dump({"accuracy": accuracy, "report": report}, f, indent=4)
 
+os.makedirs("results/figures", exist_ok=True)
+plt.savefig("results/figures/feature_importance.png", bbox_inches="tight")
+
+with open("results/metrics/rf_metrics.txt", "w") as f:
+    f.write(f"Accuracy: {accuracy:.4f}\n\n")
+    f.write(classification_report(y_test, y_pred))
+    
 print(f"📊 Accuracy: {accuracy:.4f}")
 print("📁 Métricas guardadas en reports/metrics/rf_metrics.json")
 
@@ -65,6 +72,7 @@ print("📁 Métricas guardadas en reports/metrics/rf_metrics.json")
 # ===========================
 importances = rf.feature_importances_
 indices = np.argsort(importances)[::-1][:20]  # top 20
+
 
 plt.figure(figsize=(10, 6))
 sns.barplot(x=importances[indices], y=np.array(numeric_features)[indices])
