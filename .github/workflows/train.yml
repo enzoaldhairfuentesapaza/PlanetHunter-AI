@@ -1,0 +1,31 @@
+name: Train Random Forest
+
+on:
+  workflow_dispatch:  # se lanza manualmente
+
+jobs:
+  train:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run training
+        run: python train_rf.py
+
+      - name: Upload results (metrics, figures, models)
+        uses: actions/upload-artifact@v3
+        with:
+          name: rf-results
+          path: |
+            reports/**
+            models/**
