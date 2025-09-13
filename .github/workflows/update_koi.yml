@@ -30,6 +30,8 @@ jobs:
         run: |
           pip install -r requirements.txt
           pip install pyarrow
+          pip install pyarrow fastparquet
+
 
       # 4️⃣ Ejecutar script de actualización
       - name: Run update script
