@@ -1,7 +1,7 @@
 import os
 import pandas as pd
 from datetime import datetime
-from astroquery.nasa_exoplanet_archive import NasaExoplanetArchive
+from astroquery.ipac.nexsci.nasa_exoplanet_archive import NasaExoplanetArchive
 
 # ================================
 # 1. Configuración de carpetas
