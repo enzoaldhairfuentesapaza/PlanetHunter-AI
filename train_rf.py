@@ -13,7 +13,7 @@ import joblib
 # -------------------------
 # 1. Definir rutas y carpetas
 # -------------------------
-raw_path = "PlanetHunter-AI/data/raw/"
+raw_path = "data/raw/"
 data_science_path = "PlanetHunter-AI/data_science"
 models_path = os.path.join(data_science_path, "models")
 figures_path = os.path.join(data_science_path, "figures")
@@ -26,6 +26,7 @@ for path in [data_science_path, models_path, figures_path, reports_path]:
 # -------------------------
 # 2. Cargar CSV más reciente
 # -------------------------
+
 csv_files = glob.glob(os.path.join(raw_path, "cumulative_koi_*.csv"))
 if not csv_files:
     raise FileNotFoundError(f"No se encontraron archivos CSV en {raw_path}")
