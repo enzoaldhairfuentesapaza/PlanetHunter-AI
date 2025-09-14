@@ -1,4 +1,3 @@
-
 import os
 import glob
 import json
@@ -8,6 +7,9 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+
+from packaging import version
+import sklearn
 
 from sklearn.model_selection import train_test_split
 from sklearn.compose import ColumnTransformer
@@ -94,9 +96,17 @@ X_train, X_test, y_train, y_test = train_test_split(
 numeric_transformer = Pipeline(steps=[
     ("imputer", SimpleImputer(strategy="median")),
 ])
+
+
+# Compatibilidad scikit-learn >=1.4
+if version.parse(sklearn.__version__) >= version.parse("1.4"):
+    onehot = OneHotEncoder(handle_unknown="ignore", sparse_output=False)
+else:
+    onehot = OneHotEncoder(handle_unknown="ignore", sparse=False)
+
 categorical_transformer = Pipeline(steps=[
     ("imputer", SimpleImputer(strategy="most_frequent")),
-    ("onehot", OneHotEncoder(handle_unknown="ignore", sparse=False)),
+    ("onehot", onehot),
 ])
 
 preprocess = ColumnTransformer(
