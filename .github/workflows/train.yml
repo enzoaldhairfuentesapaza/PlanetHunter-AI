@@ -1,7 +1,7 @@
 name: Train Random Forest
 
 on:
-  workflow_dispatch:   # puedes lanzarlo manualmente
+  workflow_dispatch:   # se puede lanzar manualmente
   push:
     paths:
       - "train_rf.py"
@@ -34,10 +34,18 @@ jobs:
         run: |
           python train_rf.py
 
-      - name: Commit and push trained model
+      - name: Commit and push all generated files
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/metadata/random_forest_model.pkl
-          git commit -m "Update trained Random Forest model [skip ci]" || echo "No changes to commit"
+
+          # Añadir todo lo que genera el script en data_science
+          git add data_science/models/ -f
+          git add data_science/figures/ -f
+          git add data_science/reports/ -f
+
+          # Commit con mensaje
+          git commit -m "Update Random Forest outputs [skip ci]" || echo "No changes to commit"
+
+          # Push al repo
           git push
