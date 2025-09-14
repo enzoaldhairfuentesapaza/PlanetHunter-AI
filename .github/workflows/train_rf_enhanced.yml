@@ -1,0 +1,41 @@
+name: Train RandomForest Enhanced
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Run enhanced training (fast mode for CI)
+      env:
+        SAMPLE_N: 3000   # muestreo rápido para que no tarde
+        N_EST: 100       # menos árboles para CI
+      run: |
+        python train_rf_enhanced.py
+
+    - name: Upload reports & figures
+      uses: actions/upload-artifact@v3
+      with:
+        name: rf-enhanced-results
+        path: |
+          data_science/reports/
+          data_science/figures/
