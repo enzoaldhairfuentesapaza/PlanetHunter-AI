@@ -1,6 +1,7 @@
 pandas
-numpy
 scikit-learn
+pyarrow
+numpy
 matplotlib
 seaborn
 lightkurve
@@ -11,3 +12,4 @@ torchaudio
 transformers
 xgboost
 wandb
+
