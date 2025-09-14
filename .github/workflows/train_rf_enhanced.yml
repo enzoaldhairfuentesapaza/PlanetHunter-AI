@@ -31,9 +31,9 @@ jobs:
         N_EST: 100       # menos árboles para CI
       run: |
         python train_rf_enhanced.py
-
+  
     - name: Upload reports & figures
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: rf-enhanced-results
         path: |
