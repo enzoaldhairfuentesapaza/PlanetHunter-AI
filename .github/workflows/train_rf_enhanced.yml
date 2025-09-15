@@ -32,10 +32,11 @@ jobs:
       run: |
         python train_rf_enhanced.py
   
-    - name: Upload reports & figures
+    - name: Upload reports, figures & model
       uses: actions/upload-artifact@v4
       with:
         name: rf-enhanced-results
         path: |
           data_science/reports/
           data_science/figures/
+          data_science/models/
