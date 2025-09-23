@@ -12,6 +12,8 @@ jobs:
     steps:
     - name: Checkout repo
       uses: actions/checkout@v3
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}   # permite hacer commit al repo
 
     - name: Configurar Python
       uses: actions/setup-python@v4
@@ -26,8 +28,15 @@ jobs:
     - name: Ejecutar script de entrenamiento
       run: python train_weekly.py
 
-    - name: Subir modelo entrenado como artefacto
-      uses: actions/upload-artifact@v3
-      with:
-        name: random_forest_model
-        path: random_forest_exoplanets.pkl
+    - name: Guardar modelo en carpeta models/
+      run: |
+        mkdir -p models
+        mv random_forest_exoplanets.pkl models/
+
+    - name: Commit y push del modelo actualizado
+      run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "github-actions[bot]@users.noreply.github.com"
+        git add models/random_forest_exoplanets.pkl
+        git commit -m "🔄 Modelo actualizado automáticamente [skip ci]" || echo "No changes to commit"
+        git push
