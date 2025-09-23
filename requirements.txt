@@ -1,15 +1,4 @@
 pandas
 scikit-learn
-pyarrow
-numpy
-matplotlib
-seaborn
-lightkurve
-astroquery
-torch
-torchvision
-torchaudio
-transformers
-xgboost
-wandb
-
+joblib
+requests
