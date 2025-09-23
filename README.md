@@ -1,49 +1,79 @@
 # PlanetHunter-AI
-ExoFormer es un proyecto de inteligencia artificial aplicado a la astronomía, cuyo objetivo es detectar y clasificar exoplanetas a partir de datos públicos de la NASA (Kepler y TESS) utilizando modelos avanzados como Transformers especializados en datos tabulares y series temporales.
+🌌 Descripción del proyecto
 
-# 🌌 ExoFormer: Descubriendo exoplanetas con IA
+PlanetHunter-AI es un sistema de aprendizaje automático diseñado para clasificar exoplanetas usando datos públicos de la NASA (Kepler, K2 y TESS).
+El modelo principal está basado en RandomForest, entrenado únicamente con las 13 características más relevantes, lo que le permite lograr un alto rendimiento con menor complejidad y mejor interpretabilidad.
 
-ExoFormer es un proyecto de investigación aplicada que combina astronomía e inteligencia artificial para detectar y clasificar exoplanetas a partir de datos públicos de la NASA, como las tablas de objetos de interés de Kepler (KOI), candidatos de TESS y curvas de luz de estrellas.
+Además, el proyecto incluye un plan para desarrollar una interfaz web interactiva, que permitirá a investigadores y usuarios visualizar cómo el modelo analiza los datos, mostrar estadísticas de precisión y facilitar la exploración de los exoplanetas descubiertos.
 
-El objetivo principal es construir un sistema end-to-end capaz de:
+🎯 Objetivos
 
-Procesar y limpiar grandes volúmenes de datos astronómicos.
+Actualizar semanalmente los datos de exoplanetas desde los repositorios de la NASA.
 
-Entrenar modelos de aprendizaje automático y profundo (desde Random Forest hasta Transformers especializados en datos tabulares y series temporales).
+Entrenar automáticamente el modelo RandomForest con las 13 características seleccionadas.
 
-Diferenciar entre planetas confirmados, candidatos y falsos positivos.
+Generar predicciones que clasifiquen cada objeto como:
 
-Evaluar el rendimiento científico con métricas robustas (PR-AUC, sensibilidad, tasa de falsos positivos).
+Confirmado
 
-Integrar interpretabilidad (atención, SHAP, saliency maps) para que los resultados sean útiles a la comunidad científica.
+Candidato planetario
 
-# 🚀 Características clave
+Falso positivo
 
-📡 Datos abiertos de la NASA: KOI, TCE y curvas de luz de Kepler/TESS.
+Proveer una interfaz web donde los usuarios puedan:
 
-🧠 Modelos de IA avanzados: TabTransformer, Time-Series Transformer, CNNs 1D y ensembles multimodales.
+Explorar los exoplanetas y sus características.
 
-📊 Pipeline reproducible: ETL, entrenamiento, validación y comparación de modelos.
+Ver cómo evoluciona el modelo con cada actualización.
 
-🔍 Enfoque científico: validación con injection-recovery tests y métricas usadas en la astrofísica.
+Consultar estadísticas de precisión del modelo.
 
-🌍 Visión futura: despliegue como aplicación web para que la comunidad pueda explorar candidatos y contribuir al proceso de verificación.
+⚙️ Flujo del sistema
 
-# 📑 Plan de trabajo
+Descarga de datos: un script en Python obtiene semanalmente la última versión de la base de datos de exoplanetas de la NASA.
 
-ETL y limpieza de datos (KOI, TCE, curvas de luz).
+Preprocesamiento: limpieza de datos, imputación de valores faltantes con la mediana y selección de las 13 características principales.
 
-Análisis exploratorio y baseline (XGBoost, Random Forest).
+Entrenamiento: el modelo RandomForest se reentrena automáticamente con los datos actualizados.
 
-Modelado avanzado con arquitecturas Transformer adaptadas a datos tabulares y series temporales.
+Almacenamiento: se guarda el modelo entrenado (.pkl) para ser usado en predicciones.
 
-Evaluación científica con métricas robustas y pruebas de generalización entre misiones.
+Interfaz web: permite visualizar exoplanetas, métricas del modelo y resultados de clasificación.
 
-Interpretabilidad y visualización de resultados.
+📊 Características seleccionadas para el modelo
 
-Despliegue como API y plataforma web colaborativa.
+koi_count
 
-# 🤝 Contribuciones
+koi_prad
 
-Este proyecto está abierto a la comunidad.
-Si te interesa la astronomía, el machine learning o simplemente explorar el cosmos con datos reales, ¡eres bienvenido a contribuir!
+koi_prad_err1
+
+koi_steff_err1
+
+koi_steff_err2
+
+koi_smet_err1
+
+koi_smet_err2
+
+koi_fwm_stat_sig
+
+koi_dicco_msky
+
+koi_fpflag_nt
+
+koi_fpflag_ss
+
+koi_fpflag_co
+
+koi_score
+
+🚀 Próximos pasos
+
+Implementar el script de actualización automática semanal.
+
+Diseñar la API/backend para exponer predicciones.
+
+Crear la interfaz web (Flask/Django/Streamlit) para visualizar resultados y métricas.
+
+(Opcional) permitir que el usuario suba sus propios datos para probar el modelo.
