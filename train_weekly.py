@@ -9,7 +9,7 @@ import joblib
 # ============================
 # 1. Descargar dataset NASA
 # ============================
-DATA_URL = "https://exoplanetarchive.ipac.caltech.edu/TAP/sync?query=select+*+from+pscomppars&format=csv"
+DATA_URL = "https://exoplanetarchive.ipac.caltech.edu/TAP/sync?query=select+*+from+cumulative&format=csv"
 DATA_FILE = "exoplanets.csv"
 
 print("Descargando dataset de la NASA...")
