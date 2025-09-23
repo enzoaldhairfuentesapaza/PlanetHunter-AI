@@ -1,51 +1,33 @@
-name: Train Random Forest
+name: Train Exoplanet Model
 
 on:
-  workflow_dispatch:   # se puede lanzar manualmente
-  push:
-    paths:
-      - "train_rf.py"
-      - "data/processed/**"
-
-permissions:
-  contents: write   # necesario para hacer commits
+  schedule:
+    - cron: "0 9 * * 1"   # Todos los lunes a las 09:00 UTC
+  workflow_dispatch:       # Permite lanzarlo manualmente
 
 jobs:
   train:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v3
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+    - name: Checkout repo
+      uses: actions/checkout@v3
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: "3.10"
+    - name: Configurar Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: "3.10"
 
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
+    - name: Instalar dependencias
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
 
-      - name: Train model
-        run: |
-          python train_rf.py
+    - name: Ejecutar script de entrenamiento
+      run: python train_weekly.py
 
-      - name: Commit and push all generated files
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-
-          # Añadir todo lo que genera el script en data_science
-          git add data_science/models/ -f
-          git add data_science/figures/ -f
-          git add data_science/reports/ -f
-
-          # Commit con mensaje
-          git commit -m "Update Random Forest outputs [skip ci]" || echo "No changes to commit"
-
-          # Push al repo
-          git push
+    - name: Subir modelo entrenado como artefacto
+      uses: actions/upload-artifact@v3
+      with:
+        name: random_forest_model
+        path: random_forest_exoplanets.pkl
