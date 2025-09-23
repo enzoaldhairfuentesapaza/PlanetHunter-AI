@@ -5,6 +5,9 @@ on:
     - cron: "0 9 * * 1"   # Todos los lunes a las 09:00 UTC
   workflow_dispatch:       # Permite lanzarlo manualmente
 
+permissions:
+  contents: write
+  
 jobs:
   train:
     runs-on: ubuntu-latest
